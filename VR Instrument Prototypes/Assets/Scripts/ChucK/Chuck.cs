@@ -474,7 +474,6 @@ public class Chuck
 	{
 		// Store the location of data files
 		setDataDir( Application.streamingAssetsPath );
-		Debug.Log( Application.streamingAssetsPath );
 
 		// Important in the editor, where native static arrays won't be cleaned up when entering / exiting play mode
 		cleanRegisteredChucks();
