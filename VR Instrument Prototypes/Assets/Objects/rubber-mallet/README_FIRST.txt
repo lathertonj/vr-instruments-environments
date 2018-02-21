@@ -1,0 +1,15 @@
+Rubber Mallet
+
+Used mainly in woodworking, body work, and a variety of general purpose fields, this highly detailed model of a rubber mallet can be used in any scene where you need to fill space with realistic tools.  The model consists of just 896 total polygons, and 914 verts; perfect for even low poly needs.  The model has been carefully UV unwrapped by hand, with special attention given to island placement, and comes with all the necessary texture maps for color (diffuse), specular (reflection), glossy (blurry reflection), bump, and normals channels.  The texture maps were hand-painted in several layers for extra detail at 2048x2048 pixel resolution, and hold up even under the most demanding camera angles and close-up shots.  The object contains separate material zones, which can also accept any procedural or seamless texture you wish to use.
+
+You are free to use or modify this model as you see fit, for your own projects or scenes. As with all my freebies, the object can be used for both commercial and non-commercial renders. You may NOT, however, resell or redistribute the model or textures, or any derivative of them; individually, or as part of a package/set.
+
+*** OBJ IMPORT INSTRUCTIONS: There are 3 different OBJ files associated with this model, and one MTL file, which defines the texture placement.  You will notice that two of the three OBJ files are labeled for use in specific software applications (Poser and Blender).  For best results, it's highly recommended that you import the correct file to the corresponding software application.
+
+POSER USERS:  The OBJ with (POSER) suffix was exported with a scale conversion that will allow the object to load with appropriate scaling into Poser 9 and above, or Daz Studio 4 and above, with Poser import settings. To import this file into Poser, please BE SURE to DE-select all the check box options in the OBJ Import Options dialogue box. DESELECT the "Centered", "Place On Floor", "Percent of Standard Figure Size", etc. so that no options are checked.  This will import the object exactly as intended into the scene, with proper scaling.  DAZ STUDIO users: Select "File/Import", then navigate to the folder on your hard drive that contains the model in this pack.  Choose the "(POSER).obj".  In the Import Options dialogue box, pick the Poser (1unit=8ft) option in the "FROM" dropdown list.  Be sure all other options are checked, and click "Accept".  BLENDER USERS:  Select the "(BLENDER).obj".  All other software packages should import the standard "(STANDARD).obj".
+
+All textures and UV's were created by me.  Any stock photos that may have been used as a source of creation for the textures, on any of my models, were likely downloaded from CGTextures.com texture resource website, as well as other royalty-free texture repositories. You are not allowed to redistribute these textures in any way.  Please refer to CGTextures website for specific restrictions regarding the distribution of textures.
+
+Thanks,
+
+John

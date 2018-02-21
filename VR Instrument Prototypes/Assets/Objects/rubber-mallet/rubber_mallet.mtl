@@ -1,0 +1,27 @@
+# 3ds Max Wavefront OBJ Exporter v0.97b
+
+newmtl rubber
+	Ns 0.000000
+	Ni 1.500000
+	Ka 0.588235 0.588235 0.588235
+	Kd 0.588235 0.588235 0.588235
+	Ks 0.000000 0.000000 0.000000
+	Ke 0.000000 0.000000 0.000000
+	map_Ka maps\rubber_mallet_color.jpg
+	map_Kd maps\rubber_mallet_color.jpg
+	map_Ks maps\rubber_mallet_specular.jpg
+	map_bump maps\rubber_mallet_normal.jpg
+	bump maps\rubber_mallet_normal.jpg
+
+newmtl wood
+	Ns 0.000000
+	Ni 1.500000
+	Ka 0.588235 0.588235 0.588235
+	Kd 0.588235 0.588235 0.588235
+	Ks 0.000000 0.000000 0.000000
+	Ke 0.000000 0.000000 0.000000
+	map_Ka maps\rubber_mallet_color.jpg
+	map_Kd maps\rubber_mallet_color.jpg
+	map_Ks maps\rubber_mallet_specular.jpg
+	map_bump maps\rubber_mallet_normal.jpg
+	bump maps\rubber_mallet_normal.jpg
