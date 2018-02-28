@@ -171,6 +171,14 @@ Prefab:
       propertyPath: m_Name
       value: rubber_mallet(DEFAULT) (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 100002, guid: bc258825b249c774aa8b03cda5b64d67, type: 3}
+      propertyPath: m_TagString
+      value: Mallet
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: bc258825b249c774aa8b03cda5b64d67, type: 3}
+      propertyPath: m_TagString
+      value: Mallet
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: bc258825b249c774aa8b03cda5b64d67, type: 3}
   m_IsPrefabParent: 0
@@ -289,7 +297,7 @@ MonoBehaviour:
   verbose: 0
   createComponents: 1
   updateDynamically: 1
---- !u!43 &224744984
+--- !u!43 &196029822
 Mesh:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
@@ -430,11 +438,6 @@ Transform:
   m_Father: {fileID: 2130117744}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!4 &491561364 stripped
-Transform:
-  m_PrefabParentObject: {fileID: 4077725139432606, guid: 11a0a752389636f41af962d74f79e3d8,
-    type: 2}
-  m_PrefabInternal: {fileID: 1593831149}
 --- !u!1 &596390863
 GameObject:
   m_ObjectHideFlags: 0
@@ -586,8 +589,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f1de5e1a02bb27e4a9a7f1cbc4a71ecf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  myMallet: {fileID: 1593831152}
-  myMalletPosition: {fileID: 491561364}
 --- !u!114 &665898586
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -643,39 +644,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!21 &790377113
-Material:
-  serializedVersion: 6
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_Name: Sprites/Default
-  m_Shader: {fileID: 10753, guid: 0000000000000000f000000000000000, type: 0}
-  m_ShaderKeywords: 
-  m_LightmapFlags: 4
-  m_EnableInstancingVariants: 0
-  m_DoubleSidedGI: 0
-  m_CustomRenderQueue: -1
-  stringTagMap: {}
-  disabledShaderPasses: []
-  m_SavedProperties:
-    serializedVersion: 3
-    m_TexEnvs:
-    - _AlphaTex:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _MainTex:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    m_Floats:
-    - PixelSnap: 0
-    - _EnableExternalAlpha: 0
-    m_Colors:
-    - _Color: {r: 1, g: 1, b: 1, a: 1}
-    - _Flip: {r: 1, g: 1, b: 1, a: 1}
-    - _RendererColor: {r: 1, g: 1, b: 1, a: 1}
 --- !u!1 &1222681748
 GameObject:
   m_ObjectHideFlags: 0
@@ -1212,17 +1180,24 @@ Prefab:
       propertyPath: m_Limits.max
       value: 15
       objectReference: {fileID: 0}
+    - target: {fileID: 1843789290203218, guid: 11a0a752389636f41af962d74f79e3d8, type: 2}
+      propertyPath: m_TagString
+      value: Mallet
+      objectReference: {fileID: 0}
+    - target: {fileID: 1884527058930802, guid: 11a0a752389636f41af962d74f79e3d8, type: 2}
+      propertyPath: m_TagString
+      value: Mallet
+      objectReference: {fileID: 0}
+    - target: {fileID: 1321479446852794, guid: 11a0a752389636f41af962d74f79e3d8, type: 2}
+      propertyPath: m_TagString
+      value: Mallet
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 11a0a752389636f41af962d74f79e3d8, type: 2}
   m_IsPrefabParent: 0
 --- !u!1 &1593831151 stripped
 GameObject:
   m_PrefabParentObject: {fileID: 1843789290203218, guid: 11a0a752389636f41af962d74f79e3d8,
-    type: 2}
-  m_PrefabInternal: {fileID: 1593831149}
---- !u!54 &1593831152 stripped
-Rigidbody:
-  m_PrefabParentObject: {fileID: 54097702271597048, guid: 11a0a752389636f41af962d74f79e3d8,
     type: 2}
   m_PrefabInternal: {fileID: 1593831149}
 --- !u!114 &1593831153
@@ -1236,6 +1211,39 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3d6c43726d64a3942aee96e6e3717e53, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!21 &1679387146
+Material:
+  serializedVersion: 6
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: Sprites/Default
+  m_Shader: {fileID: 10753, guid: 0000000000000000f000000000000000, type: 0}
+  m_ShaderKeywords: 
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _AlphaTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MainTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Floats:
+    - PixelSnap: 0
+    - _EnableExternalAlpha: 0
+    m_Colors:
+    - _Color: {r: 1, g: 1, b: 1, a: 1}
+    - _Flip: {r: 1, g: 1, b: 1, a: 1}
+    - _RendererColor: {r: 1, g: 1, b: 1, a: 1}
 --- !u!1 &1690169381
 GameObject:
   m_ObjectHideFlags: 0
@@ -1364,8 +1372,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f1de5e1a02bb27e4a9a7f1cbc4a71ecf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  myMallet: {fileID: 49381152}
-  myMalletPosition: {fileID: 1994324918}
 --- !u!1 &1763712901
 GameObject:
   m_ObjectHideFlags: 0
@@ -1419,7 +1425,7 @@ MeshFilter:
     type: 2}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1763712901}
-  m_Mesh: {fileID: 224744984}
+  m_Mesh: {fileID: 196029822}
 --- !u!23 &1763712904
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -1434,7 +1440,7 @@ MeshRenderer:
   m_LightProbeUsage: 0
   m_ReflectionProbeUsage: 0
   m_Materials:
-  - {fileID: 790377113}
+  - {fileID: 1679387146}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -4882,7 +4888,7 @@ GameObject:
   - component: {fileID: 1994324919}
   m_Layer: 0
   m_Name: collider
-  m_TagString: Untagged
+  m_TagString: Mallet
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
