@@ -24,8 +24,6 @@ public class MalletSelector : MonoBehaviour , ColliderBridgeListener
     public Rigidbody myMallet;
     public Transform myMalletPosition;
 
-    // NOTE: with haptic feedback, it feels like the collision 
-    //  is more on time and the soundfile is delayed! :(
 
     private void Start()
     {
@@ -59,16 +57,24 @@ public class MalletSelector : MonoBehaviour , ColliderBridgeListener
         // myMallet.angularVelocity = -20 * Controller.angularVelocity;
     }
 
-    void ColliderBridgeListener.BridgeCollisionEnter(Collision collision)
+    void ColliderBridgeListener.BridgeCollisionEnter( Collision collision )
     {
         // on a collision, cause a haptic feedback pulse
-        Controller.TriggerHapticPulse( durationMicroSec: 500 );
+        // NOTE: this was consistently arriving before the audio broadcast and so
+        // I turned down the buffer size to reduce latency
+
+        // Longer feedback for stronger collision?
+        int minFeedback = 50;
+        int maxFeedback = 50000;
+        ushort hapticDuration = (ushort) Mathf.Lerp( minFeedback, maxFeedback, 
+            Mathf.Clamp01( collision.relativeVelocity.magnitude / 500 ) );
+        Controller.TriggerHapticPulse( durationMicroSec: hapticDuration );
     }
 
     // don't care about these
-    void ColliderBridgeListener.BridgeCollisionStay(Collision collision) {}
-    void ColliderBridgeListener.BridgeCollisionExit(Collision collision) {}
-    void ColliderBridgeListener.BridgeTriggerEnter(Collider other) {}
-    void ColliderBridgeListener.BridgeTriggerStay(Collider other) {}
-    void ColliderBridgeListener.BridgeTriggerExit(Collider other) {}
+    void ColliderBridgeListener.BridgeCollisionStay( Collision collision ) {}
+    void ColliderBridgeListener.BridgeCollisionExit( Collision collision ) {}
+    void ColliderBridgeListener.BridgeTriggerEnter( Collider other ) {}
+    void ColliderBridgeListener.BridgeTriggerStay( Collider other ) {}
+    void ColliderBridgeListener.BridgeTriggerExit( Collider other ) {}
 }
