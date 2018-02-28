@@ -1,8 +1,10 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MalletSelector : MonoBehaviour {
+public class MalletSelector : MonoBehaviour , ColliderBridgeListener
+{
 
     // VR controller preamble
     private SteamVR_TrackedObject trackedObj;
@@ -21,11 +23,15 @@ public class MalletSelector : MonoBehaviour {
     // todo: refactor to private + selector
     public Rigidbody myMallet;
     public Transform myMalletPosition;
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+
+    // NOTE: with haptic feedback, it feels like the collision 
+    //  is more on time and the soundfile is delayed! :(
+
+    private void Start()
+    {
+        // set up link to receive haptic feedback on collision
+        myMallet.GetComponent<ColliderBridgeSource>().Initialize( this );
+    }
 
     private void FixedUpdate()
     {
@@ -52,4 +58,17 @@ public class MalletSelector : MonoBehaviour {
         // 6. Angular velocity opposite and larger?
         // myMallet.angularVelocity = -20 * Controller.angularVelocity;
     }
+
+    void ColliderBridgeListener.BridgeCollisionEnter(Collision collision)
+    {
+        // on a collision, cause a haptic feedback pulse
+        Controller.TriggerHapticPulse( durationMicroSec: 500 );
+    }
+
+    // don't care about these
+    void ColliderBridgeListener.BridgeCollisionStay(Collision collision) {}
+    void ColliderBridgeListener.BridgeCollisionExit(Collision collision) {}
+    void ColliderBridgeListener.BridgeTriggerEnter(Collider other) {}
+    void ColliderBridgeListener.BridgeTriggerStay(Collider other) {}
+    void ColliderBridgeListener.BridgeTriggerExit(Collider other) {}
 }

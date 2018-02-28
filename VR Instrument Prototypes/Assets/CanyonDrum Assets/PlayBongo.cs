@@ -28,7 +28,7 @@ public class PlayBongo : MonoBehaviour {
             {{
                 SndBuf buf => n;
                 me.dir() + ""bongo_hits/bongo1.wav"" => buf.read;
-                intensity * 3 => buf.gain;
+                intensity * 10 => buf.gain;
 //<<< intensity >>>;
     
                 0.5 - 0.25 * intensity => buf.rate;
