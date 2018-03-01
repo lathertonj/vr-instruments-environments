@@ -8,6 +8,7 @@ public class PlayBongo : MonoBehaviour {
     private ChuckSubInstance myChuck;
     private string myBongoIntensity;
     private string myBongoPlayEvent;
+    private string myBongoNumber;
 
     // Unity
     private ParticleSystem myEmitter;
@@ -19,15 +20,16 @@ public class PlayBongo : MonoBehaviour {
 	    myChuck = GetComponent<ChuckSubInstance>();
         myBongoIntensity = myChuck.GetUniqueVariableName();
         myBongoPlayEvent = myChuck.GetUniqueVariableName();
+        myBongoNumber = myChuck.GetUniqueVariableName();
         myChuck.RunCode( string.Format( @"
             NRev n => dac;
             0.03 => n.mix;
 //SinOsc foo => n;
             
-            fun void PlayHit( float intensity )
+            fun void PlayHit( float intensity, string bongoNumber )
             {{
                 SndBuf buf => n;
-                me.dir() + ""bongo_hits/bongo1.wav"" => buf.read;
+                me.dir() + ""bongo_hits/bongo"" + bongoNumber + "".wav"" => buf.read;
                 intensity * 10 => buf.gain;
 //<<< intensity >>>;
     
@@ -40,14 +42,15 @@ public class PlayBongo : MonoBehaviour {
 
             external float {0};
             external Event {1};
+            ""1"" => external string {2};
    
             while( true )
             {{
                 {1} => now;
-                spork ~ PlayHit( {0} );
+                spork ~ PlayHit( {0}, {2} );
             }}
         
-        ", myBongoIntensity, myBongoPlayEvent ) );
+        ", myBongoIntensity, myBongoPlayEvent, myBongoNumber ) );
 
 
         // Unity
@@ -85,15 +88,26 @@ public class PlayBongo : MonoBehaviour {
         // normalized radius --> my radius
         float myRadius = 29;
 
+        string whichBongo = "1";
+        if( localLocation.magnitude > 0.9f )
+        {
+            whichBongo = "3";
+        }
+        else if( localLocation.magnitude > 0.75f )
+        {
+            whichBongo = "2";
+        }
+
         // world center + local offset = world offset
-        Play( intensity, myCenterLocation + myRadius * localLocation );
+        Play( intensity, myCenterLocation + myRadius * localLocation, whichBongo );
     }
     
-    public void Play( float intensity, Vector3 location )
+    public void Play( float intensity, Vector3 location, string whichBongo = "1" )
     {
         // ChucK: set intensity then play impact
         Debug.Log("intensity: " + intensity.ToString() );
         myChuck.SetFloat( myBongoIntensity, intensity );
+        myChuck.SetString( myBongoNumber, whichBongo );
         myChuck.BroadcastEvent( myBongoPlayEvent );
 
         // Unity: emit particle
