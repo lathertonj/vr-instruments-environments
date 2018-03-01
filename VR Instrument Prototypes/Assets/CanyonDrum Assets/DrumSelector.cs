@@ -16,8 +16,8 @@ public class DrumSelector : MonoBehaviour {
         trackedObj = GetComponent<SteamVR_TrackedObject>();
     }
 
-
-
+    [Tooltip("If checked, use touchpad clicks. If unchecked, use trigger presses.")]
+    public bool useTouchpad = true;
     private LaserPointer myLaserPointer;
 
     // Use this for initialization
@@ -29,7 +29,8 @@ public class DrumSelector : MonoBehaviour {
 	}
 	
 	void LateUpdate () {
-	    if( Controller.GetPressDown(SteamVR_Controller.ButtonMask.Touchpad) )
+	    if( ( useTouchpad && Controller.GetPressDown(SteamVR_Controller.ButtonMask.Touchpad ) )
+            || ( !useTouchpad && Controller.GetPressDown(SteamVR_Controller.ButtonMask.Trigger ) ) )
         {
             Collider collidingObject = myLaserPointer.GetFoundCollider();
             if( collidingObject != null )
