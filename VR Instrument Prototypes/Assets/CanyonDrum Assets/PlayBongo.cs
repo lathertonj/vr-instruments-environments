@@ -61,7 +61,10 @@ public class PlayBongo : MonoBehaviour {
 
     private void OnCollisionEnter( Collision collision )
     {
-        Play( collision.relativeVelocity.magnitude, /*collision.collider.transform.position*/ // don't use collider position
+        float intensity = collision.relativeVelocity.magnitude;
+
+        Play( Mathf.Min( 1.0f, intensity / 200.0f ), 
+            /*collision.collider.transform.position*/ // don't use collider position
             collision.contacts[0].point ); // use contact point
     }
 
@@ -74,12 +77,23 @@ public class PlayBongo : MonoBehaviour {
     {
         Play( Random.Range( 0.5f, 0.9f ), location );
     }
+
+    public void PlayLocalLocation( float intensity, Vector3 localLocation )
+    {
+        Vector3 myCenterLocation = myEmitter.transform.position;
+
+        // normalized radius --> my radius
+        float myRadius = 29;
+
+        // world center + local offset = world offset
+        Play( intensity, myCenterLocation + myRadius * localLocation );
+    }
     
-    private void Play( float intensity, Vector3 location )
+    public void Play( float intensity, Vector3 location )
     {
         // ChucK: set intensity then play impact
         Debug.Log("intensity: " + intensity.ToString() );
-        myChuck.SetFloat( myBongoIntensity, Mathf.Min( 1.0f, intensity / 200.0f ) );
+        myChuck.SetFloat( myBongoIntensity, intensity );
         myChuck.BroadcastEvent( myBongoPlayEvent );
 
         // Unity: emit particle
