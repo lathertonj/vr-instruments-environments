@@ -13,7 +13,7 @@ public class PlayBongo : MonoBehaviour {
     // Unity
     private ParticleSystem myEmitter;
     private MeshDeformer myDeformer;
-    private float myDeformerOffset = 0.1f;
+    private float myDeformerOffset = 5f; // previously: 0.1f
     public float deformForce = 10f;
 
 	// Use this for initialization
