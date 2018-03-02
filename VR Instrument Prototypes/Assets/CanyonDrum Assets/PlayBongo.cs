@@ -12,6 +12,9 @@ public class PlayBongo : MonoBehaviour {
 
     // Unity
     private ParticleSystem myEmitter;
+    private MeshDeformer myDeformer;
+    private float myDeformerOffset = 0.1f;
+    public float deformForce = 10f;
 
 	// Use this for initialization
 	void Start()
@@ -55,6 +58,7 @@ public class PlayBongo : MonoBehaviour {
 
         // Unity
         myEmitter = GetComponentInChildren<ParticleSystem>();
+        myDeformer = GetComponentInChildren<MeshDeformer>();
 	}
 	
 	// Update is called once per frame
@@ -121,5 +125,11 @@ public class PlayBongo : MonoBehaviour {
         newParams.velocity = new Vector3( 0.0f, 15.0f, 0.0f );
 
         myEmitter.Emit( newParams, 1 );
+
+
+        // unity: deform mesh:
+        Vector3 normalDirection = Vector3.up;
+        // force is proportional to intensity
+        myDeformer.AddDeformingForce( location + myDeformerOffset * normalDirection, intensity * deformForce );
     }
 }
