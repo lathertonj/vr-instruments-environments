@@ -128,6 +128,7 @@ public class PlayBongo : MonoBehaviour {
 
 
         // unity: deform mesh:
+        // TODO: compute normal direction from the closest point on the collider?
         Vector3 normalDirection = Vector3.up;
         // force is proportional to intensity
         myDeformer.AddDeformingForce( location + myDeformerOffset * normalDirection, intensity * deformForce );
