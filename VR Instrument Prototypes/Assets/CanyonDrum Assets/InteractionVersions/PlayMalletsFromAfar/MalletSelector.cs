@@ -30,12 +30,12 @@ public class MalletSelector : MonoBehaviour , ColliderBridgeListener
     {
         // set up laser pointer to show laser when thumb is resting on trackpad
 	    myLaserPointer = GetComponent<LaserPointer>();
-        // don't need to press the button to show the laser
-        myLaserPointer.laserOnTouchpadButtonPress = false;
+        // need to press the button to show the laser
+        myLaserPointer.laserOnTouchpadButtonPress = true;
 	}
 	
 	void LateUpdate () {
-	    if( Controller.GetPressDown(SteamVR_Controller.ButtonMask.Touchpad) )
+	    if( Controller.GetPressUp( SteamVR_Controller.ButtonMask.Touchpad ) )
         {
             Collider collidingObject = myLaserPointer.GetFoundCollider();
             // if we collided with something and it has the Mallet tag:
