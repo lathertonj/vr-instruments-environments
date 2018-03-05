@@ -15,7 +15,7 @@ public class DrumSurface : MonoBehaviour {
 
     private void OnTriggerEnter( Collider other )
     {
-        DrumSurfaceHitter controller = other.GetComponent<DrumSurfaceHitter>();
+        HapticFeedback controller = other.GetComponent<HapticFeedback>();
         if( controller != null )
         {
             // get contact point: center of controller box (controller local space) + controller position (world space)
@@ -50,7 +50,7 @@ public class DrumSurface : MonoBehaviour {
             myDrum.PlayLocalLocation( intensity, contactPoint );
 
             // haptic feedback
-            controller.TriggerHapticFeedback();
+            controller.TriggerHapticFeedback( intensity );
         }
     }
 }

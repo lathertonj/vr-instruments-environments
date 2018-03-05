@@ -25,6 +25,7 @@ public class MalletSelector : MonoBehaviour , ColliderBridgeListener
     // public Transform myMalletPosition;
 
     private LaserPointer myLaserPointer;
+    private HapticFeedback myHapticFeedback;
 
     private void Start()
     {
@@ -32,6 +33,9 @@ public class MalletSelector : MonoBehaviour , ColliderBridgeListener
 	    myLaserPointer = GetComponent<LaserPointer>();
         // need to press the button to show the laser
         myLaserPointer.laserOnTouchpadButtonPress = true;
+
+        // haptic feedback component
+        myHapticFeedback = GetComponent<HapticFeedback>();
 	}
 	
 	void LateUpdate () {
@@ -107,12 +111,9 @@ public class MalletSelector : MonoBehaviour , ColliderBridgeListener
         // NOTE: this was consistently arriving before the audio broadcast and so
         // I turned down the buffer size to reduce latency
 
-        // Longer feedback for stronger collision?
-        int minFeedback = 50;
-        int maxFeedback = 50000;
-        ushort hapticDuration = (ushort) Mathf.Lerp( minFeedback, maxFeedback, 
-            Mathf.Clamp01( collision.relativeVelocity.magnitude / 500 ) );
-        Controller.TriggerHapticPulse( durationMicroSec: hapticDuration );
+        myHapticFeedback.TriggerHapticFeedback( intensity: 
+            Mathf.Clamp01( collision.relativeVelocity.magnitude / 500 )
+        );
     }
 
     // don't care about these

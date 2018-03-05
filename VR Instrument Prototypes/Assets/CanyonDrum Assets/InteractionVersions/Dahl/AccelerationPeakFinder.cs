@@ -18,12 +18,17 @@ public class AccelerationPeakFinder : MonoBehaviour {
 
     // Controller input: select my drum
     private LaserPointer myLaserPointer;
+    // Controller input: play haptic feedback
+    private HapticFeedback myHapticFeedback;
+    // my pre-selected drum
     private PlayBongo myBongo = null;
     void Start()
     {
 	    myLaserPointer = GetComponent<LaserPointer>();
         // need to press the button to show the laser
         myLaserPointer.laserOnTouchpadButtonPress = true;
+        // haptic feedback
+        myHapticFeedback = GetComponent<HapticFeedback>();
 	}
 	
 	void LateUpdate () {
@@ -49,18 +54,23 @@ public class AccelerationPeakFinder : MonoBehaviour {
 
         if( CheckForHit() )
         {
-            Debug.Log( "hit with acceleration " + prevAcceleration.magnitude );
-            // map roughly to 0,1 and play
-            float intensity = Mathf.Clamp01( velocity.magnitude / 2.5f );
-            intensity = Mathf.Clamp01( prevAcceleration.magnitude / 0.5f );
+            // map intensity roughly to 0,1
+            // tried velocity.magnitude (/2.5f) and it feels much less predictable.
+            // so use the thing that the peak is actually about: prevAcceleration
+            float intensity = Mathf.Clamp01( prevAcceleration.magnitude / 0.5f );
+            // for locations of flares: to the L/R of drum for L/R hands
             Vector3 location = 0.5f * Vector3.forward;
             if( amLeftHand ) { location *= -1; }
+            // play it!
             myBongo.PlayLocalLocation( intensity, location );
+            // haptic feedback
+            myHapticFeedback.TriggerHapticFeedback( intensity, hapticDelayTime );
         }
     }
 
     public float accelerationThreshold = 0.5f;
 	public float debounceTime = 0.166666667f;
+    public float hapticDelayTime = 0.050f;
     public bool amLeftHand;
 
     private Vector3 velocity = Vector3.zero;
