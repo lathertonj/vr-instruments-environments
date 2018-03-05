@@ -108,9 +108,8 @@ public class PlayBongo : MonoBehaviour {
     
     public void Play( float intensity, Vector3 location, string whichBongo = "1" )
     {
-        // ChucK: set intensity then play impact
-        Debug.Log("intensity: " + intensity.ToString() );
-        myChuck.SetFloat( myBongoIntensity, intensity );
+        // ChucK: set intensity then play impact. clamp intensity to 0,1 in case forgot
+        myChuck.SetFloat( myBongoIntensity, Mathf.Clamp01( intensity ) );
         myChuck.SetString( myBongoNumber, whichBongo );
         myChuck.BroadcastEvent( myBongoPlayEvent );
 

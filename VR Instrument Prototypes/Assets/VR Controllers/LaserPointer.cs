@@ -21,6 +21,7 @@ public class LaserPointer : MonoBehaviour {
     private Transform laserTransform;
     private Vector3 hitPoint;
     private Collider hitCollider;
+    private bool clearHitColliderOnNextFrame;
 
     // meta: is it calculated on press of touchpad or only on touch of touchpad
     public bool laserOnTouchpadButtonPress = true;
@@ -47,7 +48,7 @@ public class LaserPointer : MonoBehaviour {
     private void HideLaser()
     {
         laser.SetActive( false );
-        hitCollider = null;
+        clearHitColliderOnNextFrame = true;
     }
 
     private void Start()
@@ -58,6 +59,8 @@ public class LaserPointer : MonoBehaviour {
 
     private void Update()
     {
+        if( clearHitColliderOnNextFrame ) { hitCollider = null; clearHitColliderOnNextFrame = false; }
+
         if( (laserOnTouchpadButtonPress && Controller.GetPress(SteamVR_Controller.ButtonMask.Touchpad))
             || (!laserOnTouchpadButtonPress && Controller.GetAxis() != Vector2.zero ) )
         {
