@@ -53,12 +53,15 @@ public class AccelerationPeakFinder : MonoBehaviour {
             // map roughly to 0,1 and play
             float intensity = Mathf.Clamp01( velocity.magnitude / 2.5f );
             intensity = Mathf.Clamp01( prevAcceleration.magnitude / 0.5f );
-            myBongo.PlayLocalLocation( intensity, Vector3.zero );
+            Vector3 location = 0.5f * Vector3.forward;
+            if( amLeftHand ) { location *= -1; }
+            myBongo.PlayLocalLocation( intensity, location );
         }
     }
 
     public float accelerationThreshold = 0.5f;
 	public float debounceTime = 0.166666667f;
+    public bool amLeftHand;
 
     private Vector3 velocity = Vector3.zero;
     private Vector3 acceleration = Vector3.zero;
