@@ -5,6 +5,7 @@ using UnityEngine;
 public class DrumSurface : MonoBehaviour {
 
     public PlayBongo myDrum;
+    public float hapticDelayTime = 0.05f;
     private ParticleSystem myEmitter;
 
 	// Use this for initialization
@@ -50,7 +51,7 @@ public class DrumSurface : MonoBehaviour {
             myDrum.PlayLocalLocation( intensity, contactPoint );
 
             // haptic feedback
-            controller.TriggerHapticFeedback( intensity );
+            controller.TriggerHapticFeedback( intensity, hapticDelayTime );
         }
     }
 }
