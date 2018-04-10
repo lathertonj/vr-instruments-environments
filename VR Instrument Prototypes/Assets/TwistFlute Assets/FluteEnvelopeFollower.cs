@@ -5,13 +5,13 @@ using UnityEngine;
 public class FluteEnvelopeFollower : MonoBehaviour {
 
     private ChuckSubInstance myChuck;
-    private TwistAngleMeasurer myAngleMeasurer;
+    public TwistAngleMeasurer myController;
+    private FluteEndpointConnector myFluteBody;
 
 	// Use this for initialization
 	void Start()
     {
-        myAngleMeasurer = GetComponentInParent<TwistAngleMeasurer>();
-
+        myFluteBody = GetComponentInChildren<FluteEndpointConnector>();
 		myChuck = GetComponent<ChuckSubInstance>();
         // Compute envelope
         myChuck.RunCode(@"
@@ -79,10 +79,10 @@ public class FluteEnvelopeFollower : MonoBehaviour {
 	// Update is called once per frame
 	void Update()
     {
-        // 40 to 100 hz based on distance between hands, capped at 2
-        float maxDistance = 2;
-		myChuck.SetFloat( "flutePitch", 40 + 60 * 
-            Mathf.Clamp01( myAngleMeasurer.GetControllerDistance() / maxDistance )
-        );
+        // Midi note 40-100 based on distance between hands, capped at 2
+        float maxSize = 2;
+        float pitch = 100 - 60 * Mathf.Clamp01( myFluteBody.GetMySize() / maxSize );
+        Debug.Log( pitch );
+		myChuck.SetFloat( "flutePitch", pitch );
 	}
 }
