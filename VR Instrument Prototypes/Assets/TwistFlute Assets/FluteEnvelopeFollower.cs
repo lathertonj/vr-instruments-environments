@@ -82,7 +82,8 @@ public class FluteEnvelopeFollower : MonoBehaviour {
         // Midi note 40-100 based on distance between hands, capped at 2
         float maxSize = 2;
         float pitch = 100 - 60 * Mathf.Clamp01( myFluteBody.GetMySize() / maxSize );
-        Debug.Log( pitch );
 		myChuck.SetFloat( "flutePitch", pitch );
+
+        myFluteBody.SetColor( Color.HSVToRGB( Mathf.Abs( myController.GetTwistAmount() / 360f ), 1, 1 ) );
 	}
 }

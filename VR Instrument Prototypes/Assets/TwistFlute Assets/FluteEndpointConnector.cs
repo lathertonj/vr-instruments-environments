@@ -61,4 +61,9 @@ public class FluteEndpointConnector : MonoBehaviour
     {
         myRenderer.material.mainTextureScale = new Vector2( 1, transform.localScale.y * 50 );
     }
+
+    public void SetColor( Color newColor )
+    {
+        myRenderer.material.color = newColor;
+    }
 }
