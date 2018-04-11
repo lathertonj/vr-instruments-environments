@@ -45,8 +45,10 @@ public class FluteEnvelopeFollower : MonoBehaviour {
             external float micLevel;
             external float flutePitch;
             external float fluteWarpedness;
-            TriOsc t => dac;
-            0 => t.gain;
+            TriOsc t => SinOsc overdrive => dac;
+            1 => overdrive.sync;
+            0.3 => t.gain;
+            0 => overdrive.gain;
 
             // lag behind the envelope follower by 1 samp
             1::samp => now;
@@ -58,7 +60,7 @@ public class FluteEnvelopeFollower : MonoBehaviour {
 
             while( true )
             {
-                micLevel * 20 => goalGain;
+                micLevel * 30 => goalGain;
                 if( currentGain < goalGain )
                 {
                     currentGain + gainSlewUp * ( goalGain - currentGain ) => currentGain;
@@ -69,7 +71,8 @@ public class FluteEnvelopeFollower : MonoBehaviour {
                 }
 
 
-                currentGain => t.gain;
+                currentGain => overdrive.gain;
+                fluteWarpedness + 0.3 => t.gain;
                 flutePitch => Math.mtof => t.freq;
                 1::ms => now;
             }
@@ -83,7 +86,9 @@ public class FluteEnvelopeFollower : MonoBehaviour {
         float maxSize = 2;
         float pitch = 100 - 60 * Mathf.Clamp01( myFluteBody.GetMySize() / maxSize );
 		myChuck.SetFloat( "flutePitch", pitch );
+        float twistAmount = Mathf.Abs( myController.GetTwistAmount() / 360f );
+        myChuck.SetFloat( "fluteWarpedness", twistAmount );
 
-        myFluteBody.SetColor( Color.HSVToRGB( Mathf.Abs( myController.GetTwistAmount() / 360f ), 1, 1 ) );
+        myFluteBody.SetColor( Color.HSVToRGB( twistAmount, 1, 1 ) );
 	}
 }
