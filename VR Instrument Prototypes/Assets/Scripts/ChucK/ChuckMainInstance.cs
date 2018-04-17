@@ -259,8 +259,11 @@ public class ChuckMainInstance : MonoBehaviour {
         // setup group for reliable ordering
         mySource = GetComponent<AudioSource>();
         mySource.outputAudioMixerGroup = Chuck.FindAudioMixerGroup( "ChuckMainInstanceDestination" );
+    }
 
-		// setup mic
+    void Start()
+    {
+		// setup mic -- put in start for minimum latency (Awake() has much latency)
 		SetupMic();
 
 		// has init
@@ -289,7 +292,7 @@ public class ChuckMainInstance : MonoBehaviour {
 		}
 
 		// make a clip that loops recording when it reaches the end, is 10 seconds long, and uses the project sample rate
-		micClip = Microphone.Start( myMicDevice, true, 10, AudioSettings.GetConfiguration().sampleRate );
+		micClip = Microphone.Start( myMicDevice, true, 1, AudioSettings.GetConfiguration().sampleRate );
 	
 		mySource.clip = micClip;
 		// also loop the audio source

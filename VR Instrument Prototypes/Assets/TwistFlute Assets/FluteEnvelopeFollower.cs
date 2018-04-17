@@ -13,6 +13,8 @@ public class FluteEnvelopeFollower : MonoBehaviour {
     {
         myFluteBody = GetComponentInChildren<FluteEndpointConnector>();
 		myChuck = GetComponent<ChuckSubInstance>();
+        // hear mic?
+        // myChuck.RunCode( "adc => dac;");
         // Compute envelope
         myChuck.RunCode(@"
             // see smelt.cs.princeton.edu/code/microphone/follower.ck
@@ -98,9 +100,12 @@ public class FluteEnvelopeFollower : MonoBehaviour {
 	// Update is called once per frame
 	void Update()
     {
-        // Midi note 40-100 based on distance between hands, capped at 2
-        float maxSize = 2;
-        float pitch = 100 - 60 * Mathf.Clamp01( myFluteBody.GetMySize() / maxSize );
+        // Midi note 56-96 based on distance between hands, capped at 1
+        float maxSize = 0.8f;
+        float minSize = 0.4f;
+        int maxNote = 84;
+        int minNote = 60;
+        float pitch = maxNote - ( maxNote - minNote ) * Mathf.Clamp01( ( myFluteBody.GetMySize() - minSize ) / ( maxSize - minSize ) );
 		myChuck.SetFloat( "flutePitch", pitch );
         float twistAmount = Mathf.Abs( myController.GetTwistAmount() / 360f );
         myChuck.SetFloat( "fluteWarpedness", twistAmount );
