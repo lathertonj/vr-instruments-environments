@@ -19,7 +19,8 @@ public class ControllerGrabObject : MonoBehaviour {
 
 
     private GameObject collidingObject; 
-    private GameObject objectInHand; 
+    private GameObject objectInHand;
+    private bool objectInHandWasKinematic;
 
     private GameObject FindTheRigidBody( GameObject start )
     {
@@ -71,6 +72,9 @@ public class ControllerGrabObject : MonoBehaviour {
         collidingObject = null;
         var joint = AddFixedJoint();
         joint.connectedBody = objectInHand.GetComponent<Rigidbody>();
+        // turn off isKinematic so that we can move the thing we picked up
+        objectInHandWasKinematic = joint.connectedBody.isKinematic;
+        joint.connectedBody.isKinematic = false;
     }
 
     private FixedJoint AddFixedJoint()
@@ -86,10 +90,14 @@ public class ControllerGrabObject : MonoBehaviour {
         FixedJoint maybeFixedJoint = GetComponent<FixedJoint>();
         if (maybeFixedJoint)
         {
+            Rigidbody rbInHand = maybeFixedJoint.connectedBody;
             maybeFixedJoint.connectedBody = null;
             Destroy(maybeFixedJoint);
-            //objectInHand.GetComponent<Rigidbody>().velocity = Controller.velocity;
-            //objectInHand.GetComponent<Rigidbody>().angularVelocity = Controller.angularVelocity;
+            // restore isKinematic
+            rbInHand.isKinematic = objectInHandWasKinematic;
+            // add controller velocity and angular velocity for throwing
+            rbInHand.velocity = Controller.velocity;
+            rbInHand.angularVelocity = Controller.angularVelocity;
         }
         objectInHand = null;
     }
