@@ -15,12 +15,15 @@ public class ControllerGrabObject : MonoBehaviour {
     void Awake()
     {
         trackedObj = GetComponent<SteamVR_TrackedObject>();
+        objectInHeadIsKinematic = new Dictionary<Rigidbody, bool>();
     }
 
 
     private GameObject collidingObject; 
     private GameObject objectInHand;
     private bool objectInHandWasKinematic;
+    private Dictionary< Rigidbody, bool > objectInHeadIsKinematic;
+    private GameObject head;
 
     private GameObject FindTheRigidBody( GameObject start )
     {
@@ -50,7 +53,15 @@ public class ControllerGrabObject : MonoBehaviour {
 
     public void OnTriggerEnter( Collider other )
     {
-        SetCollidingObject(other);
+        if( other.gameObject.CompareTag( "Head" ) )
+        {
+            head = other.gameObject;
+        }
+        else
+        {
+            SetCollidingObject(other);
+        }
+
     }
 
     public void OnTriggerStay( Collider other )
@@ -64,14 +75,33 @@ public class ControllerGrabObject : MonoBehaviour {
         {
             collidingObject = null;
         }
+
+        if( other.gameObject == head )
+        {
+            head = null;
+        }
     }
 
     private void GrabObject()
     {
         objectInHand = collidingObject;
         collidingObject = null;
-        var joint = AddFixedJoint();
-        joint.connectedBody = objectInHand.GetComponent<Rigidbody>();
+        Rigidbody rbToPickUp = objectInHand.GetComponent<Rigidbody>();
+        
+        // if I'm trying to detach something from my head, detach it
+        if( head != null )
+        {
+            FixedJoint headJoint = head.GetComponent<FixedJoint>();
+            if( headJoint != null && headJoint.connectedBody == rbToPickUp )
+            {
+                Destroy( headJoint );
+                // restore isKinematic
+                rbToPickUp.isKinematic = objectInHeadIsKinematic[rbToPickUp];
+            }
+        }
+
+        FixedJoint joint = AddFixedJoint();
+        joint.connectedBody = rbToPickUp;
         // turn off isKinematic so that we can move the thing we picked up
         objectInHandWasKinematic = joint.connectedBody.isKinematic;
         joint.connectedBody.isKinematic = false;
@@ -98,6 +128,18 @@ public class ControllerGrabObject : MonoBehaviour {
             // add controller velocity and angular velocity for throwing
             rbInHand.velocity = Controller.velocity;
             rbInHand.angularVelocity = Controller.angularVelocity;
+
+            if( head != null )
+            {
+                // affix it to head
+                FixedJoint fx = head.AddComponent<FixedJoint>();
+                fx.breakForce = float.PositiveInfinity;
+                fx.breakTorque = float.PositiveInfinity;
+                fx.connectedBody = rbInHand;
+                // store for later
+                objectInHeadIsKinematic[rbInHand] = rbInHand.isKinematic;
+                rbInHand.isKinematic = false; 
+            }
         }
         objectInHand = null;
     }
