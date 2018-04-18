@@ -38,12 +38,18 @@ public class HitSoundController : MonoBehaviour
             TriOsc t => Gain g => dac;
             {2} => Math.mtof => t.freq;
             0.2 => g.gain; // lower volume to 20% overall
+
+            float goalVolume;
+            float actualVolume;
+            0.1 => float volumeSlew;
                
             fun void ControlVolume()
             {{
                 while( true )
                 {{
-                    {1} => t.gain;
+                    {1} => goalVolume;
+                    actualVolume + volumeSlew * ( goalVolume - actualVolume ) => actualVolume;
+                    actualVolume => t.gain;
                     10::ms => now;
                 }}
             }}
