@@ -75,10 +75,12 @@ public class FollowPlayerGaze : MonoBehaviour {
         transform.position += updatePosition;
     }
     
+    
     private float FindVerticalIntersectionPoint( Vector3 pointToLookFrom )
     {
+        int terrainMask = 1 << LayerMask.NameToLayer( "Terrain" );
         RaycastHit hit;
-        if( Physics.Raycast( pointToLookFrom, Vector3.down, out hit ) )
+        if( Physics.Raycast( pointToLookFrom, Vector3.down, out hit, maxDistance: Mathf.Infinity, layerMask: terrainMask ) )
         {
             return hit.point.y;
         }

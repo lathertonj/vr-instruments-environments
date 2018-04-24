@@ -267,7 +267,13 @@ public class ChuckSubInstance : MonoBehaviour {
 	private long numSamplesSeen = 0;
 
 	// Use this for initialization
-	void Awake() {
+	void Awake()
+    {
+        if( chuckMainInstance == null )
+        {
+            chuckMainInstance = TheChuck.Instance;
+        }
+        
         // unity getting stuff
 		int numBuffers;
 		AudioSettings.GetDSPBufferSize( out myBufferLength, out numBuffers );
