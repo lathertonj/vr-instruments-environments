@@ -11,9 +11,54 @@ public class FollowPlayerGaze : MonoBehaviour {
 
     public static float currentSpeed = 0;
 
-	// Update is called once per frame
-	void Update()
+    private void Start()
     {
+        StartNeow();
+    }
+
+    void StartNeow()
+    {
+        // play neowwww
+        TheChuck.Instance.RunCode(@"
+            SndBuf neowBuf => dac;
+            me.dir() + ""neow.wav"" => neowBuf.read;
+            1 => external float neowRate;
+
+            fun void ApplyNeowRate()
+            {
+                while( true )
+                {
+                    neowRate => neowBuf.rate;
+                    1::ms => now;
+                }
+            }
+            spork ~ ApplyNeowRate();
+
+            while( true )
+            {
+                // play
+                0 => neowBuf.pos;
+                // wait
+                Math.random2f( 1.5, 1.8 )::second => now;
+            }
+
+        ");
+    }
+
+    void UpdateNeowRate()
+    {
+        // lowest speed: 0.5x
+        // highest speed: 1.5x
+        TheChuck.Instance.SetFloat( "neowRate", 0.5 + currentSpeed / maxSpeed );
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        // sfx
+        UpdateNeowRate();
+
+        // movement
         // idea 1: fly in direction of gaze (including up/down)
         // MoveInGazeDirection();
         MoveInGazeDirection2();
