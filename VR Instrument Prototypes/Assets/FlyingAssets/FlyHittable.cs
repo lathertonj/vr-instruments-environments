@@ -33,13 +33,16 @@ public class FlyHittable : MonoBehaviour {
             controller.TriggerHapticFeedback( intensity: 0.5f, timeDelay: timeDelay );
             // destroy self when done
             Invoke( "HideSelf", timeDelay );
-            Invoke( "DestroySelf", 5 );
+            //Invoke( "DestroySelf", 5 );
         }
     }
 
     void HideSelf()
     {
-        GetComponent<MeshRenderer>().enabled = false;
+        //GetComponent<MeshRenderer>().enabled = false;
+        BubbleFadeOut fadeOut = gameObject.AddComponent<BubbleFadeOut>();
+        fadeOut.mySizeIncrease = 2f;
+        fadeOut.myFadeOutTime = 0.35f;
     }
 
     void DestroySelf()
