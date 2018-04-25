@@ -12,15 +12,17 @@ public class FlyHittable : MonoBehaviour {
         {
             haveBeenHit = true; 
 
-            //ChuckSubInstance newChuck = gameObject.AddComponent<ChuckSubInstance>();
-            //newChuck.spatialize = true;
+            ChuckSubInstance newChuck = gameObject.AddComponent<ChuckSubInstance>();
+            newChuck.spatialize = true;
 
-            TheChuck.Instance.RunCode(@"
+            // TheChuck.Instance.RunCode
+            newChuck.RunCode( string.Format( @"
                 SndBuf buf => dac;
                 ""special:dope"" => buf.read;
-                buf.length() => now;
+                0.5 + {0} => buf.rate;
+                buf.length() / buf.rate() => now;
                 buf =< dac;
-            ");
+            ", (FollowPlayerGaze.currentSpeed/5).ToString("0.000") ) );
 
             // destroy self when done
             // Invoke( "HideSelf", 0.5f );

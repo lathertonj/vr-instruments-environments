@@ -9,6 +9,8 @@ public class FollowPlayerGaze : MonoBehaviour {
     public Transform playerHand2;
     public float maxSpeed = 5;
 
+    public static float currentSpeed = 0;
+
 	// Update is called once per frame
 	void Update()
     {
@@ -39,7 +41,8 @@ public class FollowPlayerGaze : MonoBehaviour {
             DistanceToHead( playerHand1.position ) 
             + DistanceToHead( playerHand2.position )
         ) * 1.5f ); // clamp faster so I don't have to reach out as far
-        Vector3 updatePosition = speedMultiplier * maxSpeed * Time.deltaTime * player.forward;
+        currentSpeed = speedMultiplier * maxSpeed;
+        Vector3 updatePosition = currentSpeed * Time.deltaTime * player.forward;
         transform.position += updatePosition;
 
         // second: enforce min distance 1m above ground.
