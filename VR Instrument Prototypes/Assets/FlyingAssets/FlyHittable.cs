@@ -15,6 +15,9 @@ public class FlyHittable : MonoBehaviour {
             ChuckSubInstance newChuck = gameObject.AddComponent<ChuckSubInstance>();
             newChuck.spatialize = true;
 
+            HapticFeedback controller = other.GetComponent<HapticFeedback>();
+            float speed = controller.GetVelocity().magnitude;
+
             // TheChuck.Instance.RunCode
             newChuck.RunCode( string.Format( @"
                 SndBuf buf => dac;
@@ -22,11 +25,13 @@ public class FlyHittable : MonoBehaviour {
                 0.5 + {0} => buf.rate;
                 buf.length() / buf.rate() => now;
                 buf =< dac;
-            ", (FollowPlayerGaze.currentSpeed/5).ToString("0.000") ) );
+            ", (speed/2).ToString("0.000") ) );
 
+            // trigger haptic feedback after 20ms
+            float timeDelay = 0.02f;
+            controller.TriggerHapticFeedback( intensity: 0.5f, timeDelay: timeDelay );
             // destroy self when done
-            // Invoke( "HideSelf", 0.5f );
-            HideSelf();
+            Invoke( "HideSelf", timeDelay );
             Invoke( "DestroySelf", 5 );
         }
     }
