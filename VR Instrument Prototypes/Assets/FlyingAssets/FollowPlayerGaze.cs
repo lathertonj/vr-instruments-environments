@@ -13,7 +13,37 @@ public class FollowPlayerGaze : MonoBehaviour {
 
     private void Start()
     {
-        StartNeow();
+        //StartNeow();
+        StartWhoosh();
+    }
+
+    void StartWhoosh()
+    {
+        TheChuck.Instance.RunCode( @"
+            Noise n => LPF f => HPF hf => dac;
+            0.1 => hf.gain;
+            SinOsc lfo => blackhole;
+            1200 => hf.freq;
+
+            500 => external float baseWhooshLPFFreq;
+            8 => external float lfoWhooshRate;
+
+            while( true )
+            {
+                Math.max( baseWhooshLPFFreq + 200 * lfo.last(), 100 ) => f.freq;
+                lfoWhooshRate => lfo.freq;
+                1::ms => now;
+            }
+        ");
+    }
+
+    void UpdateWhoosh()
+    {
+        float speedAmount = currentSpeed / maxSpeed;
+        // 320 - 1000
+        TheChuck.Instance.SetFloat( "baseWhooshLPFFreq", 320 + speedAmount * (1000 - 320) );
+        // 0.3 - 8
+        TheChuck.Instance.SetFloat( "lfoWhooshRate", 0.3 + speedAmount * 7.7 );
     }
 
     void StartNeow()
@@ -56,7 +86,8 @@ public class FollowPlayerGaze : MonoBehaviour {
     void Update()
     {
         // sfx
-        UpdateNeowRate();
+        //UpdateNeowRate();
+        UpdateWhoosh();
 
         // movement
         // idea 1: fly in direction of gaze (including up/down)
