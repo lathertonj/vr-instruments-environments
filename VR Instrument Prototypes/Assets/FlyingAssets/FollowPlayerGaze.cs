@@ -21,7 +21,7 @@ public class FollowPlayerGaze : MonoBehaviour {
     {
         TheChuck.Instance.RunCode( @"
             Noise n => LPF f => HPF hf => dac;
-            0.1 => hf.gain;
+            0.05 => hf.gain;
             SinOsc lfo => blackhole;
             1200 => hf.freq;
 

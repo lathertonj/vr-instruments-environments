@@ -21,7 +21,8 @@ public class FlyHittable : MonoBehaviour {
             // TheChuck.Instance.RunCode
             newChuck.RunCode( string.Format( @"
                 SndBuf buf => dac;
-                ""special:mandpluk"" => buf.read; // not special:dope???
+                2 => buf.gain;
+                me.dir() + ""bubble.wav"" => buf.read; // not special:dope???
                 0.5 + {0} => buf.rate;
                 buf.length() / buf.rate() => now;
                 buf =< dac;
