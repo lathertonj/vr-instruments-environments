@@ -126,10 +126,24 @@ public class FollowPlayerGaze : MonoBehaviour {
         // TODO: make it seem a little less "thunk"y
         // TODO: bug where if you go straight at the ground, you'll get shot upwards...
         float groundHeight = FindVerticalIntersectionPoint( player.position + 20 * Vector3.up );
-        float minHeadHeight = groundHeight + 1f;
+        
+        // min head height: feels weird when you're at minimum, 
+        // you try to bend down, and the ground moves away from you.
+        /*float minHeadHeight = groundHeight + 1f;
         if( player.position.y < minHeadHeight )
         {
             transform.position += ( minHeadHeight - player.position.y ) * Vector3.up;
+        }*/
+
+        // instead, allow user to be "knee deep" up to 0.6f
+        float minFloorLevel = groundHeight - 0.6f;
+        if( transform.position.y < minFloorLevel )
+        {
+            transform.position = new Vector3( 
+                transform.position.x,
+                minFloorLevel,
+                transform.position.z
+            );
         }
     }
 
