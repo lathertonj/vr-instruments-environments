@@ -43,7 +43,8 @@ public class FollowPlayerGaze : MonoBehaviour {
         // 320 - 1000
         TheChuck.Instance.SetFloat( "baseWhooshLPFFreq", 320 + speedAmount * (1000 - 320) );
         // 0.3 - 8
-        TheChuck.Instance.SetFloat( "lfoWhooshRate", 0.3 + speedAmount * 7.7 );
+        // or: 0.3-1
+        TheChuck.Instance.SetFloat( "lfoWhooshRate", 0.3 + speedAmount * 0.7 );
     }
 
     void StartNeow()
