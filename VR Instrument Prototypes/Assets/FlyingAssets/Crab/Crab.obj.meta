@@ -1,0 +1,236 @@
+fileFormatVersion: 2
+guid: dc02ae016a7b4a248b22cd8042f1dc70
+timeCreated: 1524866366
+licenseType: Free
+ModelImporter:
+  serializedVersion: 22
+  fileIDToRecycleName:
+    100000: //RootNode
+    100002: obj100
+    100004: obj101
+    100006: obj102
+    100008: obj103
+    100010: obj104
+    100012: obj105
+    100014: obj106
+    100016: obj107
+    100018: obj108
+    100020: obj80
+    100022: obj81
+    100024: obj82
+    100026: obj83
+    100028: obj84
+    100030: obj85
+    100032: obj86
+    100034: obj87
+    100036: obj88
+    100038: obj89
+    100040: obj90
+    100042: obj91
+    100044: obj92
+    100046: obj93
+    100048: obj94
+    100050: obj95
+    100052: obj96
+    100054: obj97
+    100056: obj98
+    100058: obj99
+    400000: //RootNode
+    400002: obj100
+    400004: obj101
+    400006: obj102
+    400008: obj103
+    400010: obj104
+    400012: obj105
+    400014: obj106
+    400016: obj107
+    400018: obj108
+    400020: obj80
+    400022: obj81
+    400024: obj82
+    400026: obj83
+    400028: obj84
+    400030: obj85
+    400032: obj86
+    400034: obj87
+    400036: obj88
+    400038: obj89
+    400040: obj90
+    400042: obj91
+    400044: obj92
+    400046: obj93
+    400048: obj94
+    400050: obj95
+    400052: obj96
+    400054: obj97
+    400056: obj98
+    400058: obj99
+    2100000: Crab_Body
+    2100002: Crab_Eyes
+    2300000: obj100
+    2300002: obj101
+    2300004: obj102
+    2300006: obj103
+    2300008: obj104
+    2300010: obj105
+    2300012: obj106
+    2300014: obj107
+    2300016: obj108
+    2300018: obj80
+    2300020: obj81
+    2300022: obj82
+    2300024: obj83
+    2300026: obj84
+    2300028: obj85
+    2300030: obj86
+    2300032: obj87
+    2300034: obj88
+    2300036: obj89
+    2300038: obj90
+    2300040: obj91
+    2300042: obj92
+    2300044: obj93
+    2300046: obj94
+    2300048: obj95
+    2300050: obj96
+    2300052: obj97
+    2300054: obj98
+    2300056: obj99
+    3300000: obj100
+    3300002: obj101
+    3300004: obj102
+    3300006: obj103
+    3300008: obj104
+    3300010: obj105
+    3300012: obj106
+    3300014: obj107
+    3300016: obj108
+    3300018: obj80
+    3300020: obj81
+    3300022: obj82
+    3300024: obj83
+    3300026: obj84
+    3300028: obj85
+    3300030: obj86
+    3300032: obj87
+    3300034: obj88
+    3300036: obj89
+    3300038: obj90
+    3300040: obj91
+    3300042: obj92
+    3300044: obj93
+    3300046: obj94
+    3300048: obj95
+    3300050: obj96
+    3300052: obj97
+    3300054: obj98
+    3300056: obj99
+    4300000: obj100
+    4300002: obj101
+    4300004: obj102
+    4300006: obj103
+    4300008: obj104
+    4300010: obj105
+    4300012: obj106
+    4300014: obj107
+    4300016: obj108
+    4300018: obj80
+    4300020: obj81
+    4300022: obj82
+    4300024: obj83
+    4300026: obj84
+    4300028: obj85
+    4300030: obj86
+    4300032: obj87
+    4300034: obj88
+    4300036: obj89
+    4300038: obj90
+    4300040: obj91
+    4300042: obj92
+    4300044: obj93
+    4300046: obj94
+    4300048: obj95
+    4300050: obj96
+    4300052: obj97
+    4300054: obj98
+    4300056: obj99
+  externalObjects: {}
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 0.03
+    meshCompression: 0
+    addColliders: 0
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    preserveHierarchy: 0
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 0
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

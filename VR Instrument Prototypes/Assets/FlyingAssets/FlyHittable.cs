@@ -11,30 +11,45 @@ public class FlyHittable : MonoBehaviour {
         if( !haveBeenHit && other.gameObject.CompareTag( "Controller" ) )
         {
             haveBeenHit = true; 
-
-            ChuckSubInstance newChuck = gameObject.AddComponent<ChuckSubInstance>();
-            newChuck.spatialize = true;
-
+            
             HapticFeedback controller = other.GetComponent<HapticFeedback>();
             float speed = controller.GetVelocity().magnitude;
-
-            // TheChuck.Instance.RunCode
-            newChuck.RunCode( string.Format( @"
-                SndBuf buf => dac;
-                2 => buf.gain;
-                me.dir() + ""bubble.wav"" => buf.read; // not special:dope???
-                0.5 + {0} => buf.rate;
-                buf.length() / buf.rate() => now;
-                buf =< dac;
-            ", (speed/2).ToString("0.000") ) );
-
             // trigger haptic feedback after 20ms
             float timeDelay = 0.02f;
             controller.TriggerHapticFeedback( intensity: 0.5f, timeDelay: timeDelay );
-            // destroy self when done
-            Invoke( "HideSelf", timeDelay );
-            //Invoke( "DestroySelf", 5 );
+            
+            BeHit( speed, timeDelay );
         }
+        else if( !haveBeenHit && other.gameObject.CompareTag( "Throwable" ) )
+        {
+            haveBeenHit = true;
+
+            Rigidbody thrown = other.GetComponent<Rigidbody>();
+            float speed = thrown.velocity.magnitude;
+            float timeDelay = 0.02f;
+            BeHit( speed, timeDelay );
+        }
+    }
+
+    void BeHit( float speed, float visualTimeDelay )
+    {
+        ChuckSubInstance newChuck = gameObject.AddComponent<ChuckSubInstance>();
+            newChuck.spatialize = true;
+
+        // TheChuck.Instance.RunCode
+        newChuck.RunCode( string.Format( @"
+            SndBuf buf => dac;
+            2 => buf.gain;
+            me.dir() + ""bubble.wav"" => buf.read; // not special:dope???
+            0.5 + {0} => buf.rate;
+            buf.length() / buf.rate() => now;
+            buf =< dac;
+        ", (speed/2).ToString("0.000") ) );
+
+        
+        // destroy self when done
+        Invoke( "HideSelf", visualTimeDelay );
+        //Invoke( "DestroySelf", 5 );
     }
 
     void HideSelf()
