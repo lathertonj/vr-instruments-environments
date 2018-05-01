@@ -78,6 +78,7 @@ GameObject:
   - component: {fileID: 23140677109820196}
   - component: {fileID: 54929326109762362}
   - component: {fileID: 59951220610896042}
+  - component: {fileID: 138302016942172742}
   m_Layer: 0
   m_Name: Floor (1)
   m_TagString: Untagged
@@ -696,3 +697,16 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!138 &138302016942172742
+FixedJoint:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1282717669446038}
+  m_ConnectedBody: {fileID: 54760987241847916}
+  m_BreakForce: 300
+  m_BreakTorque: Infinity
+  m_EnableCollision: 0
+  m_EnablePreprocessing: 1
+  m_MassScale: 1
+  m_ConnectedMassScale: 1
