@@ -42,7 +42,6 @@ public class Slingshot : MonoBehaviour {
             // store
             currentProjectileRenderer = currentProjectile.GetComponent<LineRenderer>();
             currentProjectileLaser = currentProjectile.GetComponent<LaserArc>();
-            currentProjectileLaser.cube = forwardSling;
             // no longer ready
             ready = false;
         }
@@ -66,7 +65,7 @@ public class Slingshot : MonoBehaviour {
                 sling.position = slingStart + trackedController.transform.position - controllerStart;
                 currentProjectile.LookAt( projectileStart );
                 Vector3 velocity = strength * ( slingStart - sling.position );
-                currentProjectileLaser.myVelocity = velocity.magnitude;
+                currentProjectileLaser.SetVelocity( velocity );
             }
 
             // when release the trigger, launch the particle

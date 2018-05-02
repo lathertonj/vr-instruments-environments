@@ -24,7 +24,7 @@ GameObject:
   - component: {fileID: 23816182154916906}
   - component: {fileID: 54826372238449314}
   - component: {fileID: 120483692846295170}
-  - component: {fileID: 114170147525631022}
+  - component: {fileID: 114281327740354104}
   m_Layer: 0
   m_Name: Throwable
   m_TagString: Untagged
@@ -101,7 +101,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &114170147525631022
+--- !u!114 &114281327740354104
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -109,21 +109,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 1678219461430368}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: edecca7b57bef8349964f15e3fa3e782, type: 3}
+  m_Script: {fileID: 11500000, guid: 78efcced452ac494a80bcee4277000c6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  myVelocity: 30
-  numberOfPoints: 30
-  gravity: 9.81
-  myAngle: 0
-  sinAngle: 0
-  cube: {fileID: 4348818149706012}
-  points: []
-  shortLength: 0
-  projectile: {fileID: 54826372238449314}
-  materials:
-  - {fileID: 2100000, guid: 52055d6380a41d043ab789cf994aef75, type: 2}
-  totalDistance: 0
+  numPoints: 1000
+  pointGranularity: 0.01
+  lineWidth: 0.1
+  overestimationCorrection: 1.08
 --- !u!120 &120483692846295170
 LineRenderer:
   m_ObjectHideFlags: 1
@@ -138,7 +130,7 @@ LineRenderer:
   m_LightProbeUsage: 0
   m_ReflectionProbeUsage: 0
   m_Materials:
-  - {fileID: 0}
+  - {fileID: 2100000, guid: 52055d6380a41d043ab789cf994aef75, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
