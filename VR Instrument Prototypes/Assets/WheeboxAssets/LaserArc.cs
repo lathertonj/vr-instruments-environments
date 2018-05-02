@@ -5,10 +5,10 @@ using UnityEngine;
 [RequireComponent(typeof(LineRenderer))]
 public class LaserArc : MonoBehaviour 
 {
-    public int numPoints = 20;
+    public int numPoints = 1000;
     public float pointGranularity = 0.01f;
     public float lineWidth = 0.1f;
-    public float overestimationCorrection = 1.08f;
+    public float overestimationCorrection = 1.0f;
     private LineRenderer lineRenderer;
     private Vector3 velocity;
 
