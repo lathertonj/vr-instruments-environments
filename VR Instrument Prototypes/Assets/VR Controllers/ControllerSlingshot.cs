@@ -19,6 +19,7 @@ public class ControllerSlingshot : MonoBehaviour {
     // =====================================================================
 
     public Transform projectilePrefab;
+    public EndpointConnector bandPrefab;
     public Material lineMaterial;
     public float throwStrength = 10f;
 
@@ -31,13 +32,27 @@ public class ControllerSlingshot : MonoBehaviour {
     private LaserArc currentLaserArc;
     private Vector3 currentProjectileVelocity;
 
-    private Vector3 controllerOffset = new Vector3( 0, -0.04f + 0.05f, 0.09f );
+    private Transform myLeftBandAnchor;
+    private Transform myRightBandAnchor;
+    private Transform myLeftBandProjectileAnchor;
+    private Transform myRightBandProjectileAnchor;
+    private EndpointConnector myLeftBand = null;
+    private EndpointConnector myRightBand = null;
+   
 
 
 	// Use this for initialization
 	void Start()
     {
-		
+		myLeftBandAnchor = AddControllerBandLocation( slingshotBandOffset, left: true );
+        myRightBandAnchor = AddControllerBandLocation( slingshotBandOffset, left: false );
+        myLeftBandProjectileAnchor = AddControllerBandLocation( projectileBandOffset, left: true );
+        myRightBandProjectileAnchor = AddControllerBandLocation( projectileBandOffset, left: false );
+
+        myLeftBandAnchor.gameObject.name = "Left Band Anchor";
+        myRightBandAnchor.gameObject.name = "Right Band Anchor";
+        myLeftBandProjectileAnchor.gameObject.name = "Left Band Projectile Anchor";
+        myRightBandProjectileAnchor.gameObject.name = "Right Band Projectile Anchor";
 	}
 	
 	// Update is called once per frame
@@ -69,7 +84,14 @@ public class ControllerSlingshot : MonoBehaviour {
             currentLaserArc.GetComponent<LineRenderer>().material = lineMaterial;
 
 
-            // TODO: draw some slingshot model hooked onto the other controller
+            // draw some slingshot model hooked onto the other controller
+            myLeftBand = Instantiate( bandPrefab );
+            myLeftBand.myStart = myLeftBandProjectileAnchor;
+            myLeftBand.myEnd = pullbackOtherController.myLeftBandAnchor;
+            myRightBand = Instantiate( bandPrefab );
+            myRightBand.myStart = myRightBandProjectileAnchor;
+            myRightBand.myEnd = pullbackOtherController.myRightBandAnchor;
+
         }
 
         if( pullingBack && Controller.GetPress( SteamVR_Controller.ButtonMask.Trigger ) )
@@ -81,13 +103,12 @@ public class ControllerSlingshot : MonoBehaviour {
             );
             currentLaserArc.SetVelocity( currentProjectileVelocity );
 
-            // TODO: update the slingshot model
+            // update the slingshot model: done automatically by EndpointConnector prefab
         }
 
         if( pullingBack && Controller.GetPressUp( SteamVR_Controller.ButtonMask.Trigger ) )
         {
             // launch!
-            
 
             // stop showing the LaserArc
             Destroy( currentLaserArc );
@@ -110,7 +131,9 @@ public class ControllerSlingshot : MonoBehaviour {
             pullingBack = false;
             pullbackOtherController = null;
 
-            // TODO: remove the slingshot model
+            // remove the slingshot model
+            Destroy( myLeftBand.gameObject );
+            Destroy( myRightBand.gameObject );
         }
 	}
 
@@ -141,8 +164,22 @@ public class ControllerSlingshot : MonoBehaviour {
         otherController = null;
     }
 
+    private Vector3 controllerOffset = new Vector3( 0, -0.04f + 0.05f, 0.09f );
     private Vector3 GetControllerTipLocation()
     {
         return transform.position + ( transform.rotation * controllerOffset );
     }
+
+    private Vector3 slingshotBandOffset = new Vector3( 0.0507f, -0.0321f, -0.0113f);// or midpoint: new Vector3( 0.0523f, -0.0404f, 0.0018f );
+    private Vector3 projectileBandOffset = new Vector3( 0.04f, 0.01f, 0.08f );
+    private Transform AddControllerBandLocation( Vector3 offset, bool left )
+    {
+        GameObject emptyChild = new GameObject();
+        emptyChild.transform.parent = transform;
+        offset.x = ( left ? -1 : 1 ) * Mathf.Abs( offset.x );
+        emptyChild.transform.localPosition = transform.rotation * offset;
+
+        return emptyChild.transform;
+    }
+
 }
