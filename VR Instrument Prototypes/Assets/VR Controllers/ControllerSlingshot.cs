@@ -44,6 +44,12 @@ public class ControllerSlingshot : MonoBehaviour {
 	// Use this for initialization
 	void Start()
     {
+        // when using this interaction method, make it much easier for controllers
+        // to collide with each other
+        BoxCollider myCollider = GetComponent<BoxCollider>();
+        myCollider.size *= 2f;
+
+        // create anchors for bands
 		myLeftBandAnchor = AddControllerBandLocation( slingshotBandOffset, left: true );
         myRightBandAnchor = AddControllerBandLocation( slingshotBandOffset, left: false );
         myLeftBandProjectileAnchor = AddControllerBandLocation( projectileBandOffset, left: true );
