@@ -38,6 +38,9 @@ public class ControllerSlingshot : MonoBehaviour {
     private Transform myRightBandProjectileAnchor;
     private EndpointConnector myLeftBand = null;
     private EndpointConnector myRightBand = null;
+
+    private int currentClickAmount = 0;
+    private float clickRate = 0.01f;
    
 
 
@@ -98,6 +101,9 @@ public class ControllerSlingshot : MonoBehaviour {
             myRightBand.myStart = myRightBandProjectileAnchor;
             myRightBand.myEnd = pullbackOtherController.myRightBandAnchor;
 
+            currentClickAmount = CalculateClickAmount();
+
+
         }
 
         if( pullingBack && Controller.GetPress( SteamVR_Controller.ButtonMask.Trigger ) )
@@ -110,6 +116,23 @@ public class ControllerSlingshot : MonoBehaviour {
             currentLaserArc.SetVelocity( currentProjectileVelocity );
 
             // update the slingshot model: done automatically by EndpointConnector prefab
+
+            // make noises for current click amount
+            int newClickAmount = CalculateClickAmount();
+            if( newClickAmount != currentClickAmount )
+            {
+                float bufRate = 1.0f + ( newClickAmount * 1.0f / 30 );
+                Debug.Log( bufRate );
+                TheChuck.Instance.RunCode( string.Format( @"
+                    SndBuf buf => dac;
+                    me.dir() + ""click.wav"" => buf.read;
+                    {0} => buf.rate;
+                
+                    buf.length() / buf.rate() => now;
+
+                ", bufRate ));
+                currentClickAmount = newClickAmount;
+            }
         }
 
         if( pullingBack && Controller.GetPressUp( SteamVR_Controller.ButtonMask.Trigger ) )
@@ -186,6 +209,11 @@ public class ControllerSlingshot : MonoBehaviour {
         emptyChild.transform.localPosition = transform.rotation * offset;
 
         return emptyChild.transform;
+    }
+
+    private int CalculateClickAmount()
+    {
+        return (int) ( ( transform.position - pullbackOtherController.transform.position ).magnitude / clickRate );
     }
 
 }
