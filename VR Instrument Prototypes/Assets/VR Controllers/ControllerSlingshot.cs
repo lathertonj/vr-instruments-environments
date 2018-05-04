@@ -22,6 +22,8 @@ public class ControllerSlingshot : MonoBehaviour {
     public EndpointConnector bandPrefab;
     public Material lineMaterial;
     public float throwStrength = 10f;
+    public string pullbackSound = "";
+    public string launchSound = "";
 
 
     private bool collidingWithOtherController = false;
@@ -119,20 +121,20 @@ public class ControllerSlingshot : MonoBehaviour {
 
             // make noises for current click amount
             int newClickAmount = CalculateClickAmount();
-            if( newClickAmount != currentClickAmount )
+            if( newClickAmount != currentClickAmount && pullbackSound != "" )
             {
                 float bufRate = 1.0f + ( newClickAmount * 1.0f / 30 );
                 Debug.Log( bufRate );
                 TheChuck.Instance.RunCode( string.Format( @"
                     SndBuf buf => dac;
-                    me.dir() + ""click.wav"" => buf.read;
+                    me.dir() + ""{1}"" => buf.read;
                     {0} => buf.rate;
                 
                     buf.length() / buf.rate() => now;
 
-                ", bufRate ));
-                currentClickAmount = newClickAmount;
+                ", bufRate, pullbackSound ) );
             }
+            currentClickAmount = newClickAmount;
         }
 
         if( pullingBack && Controller.GetPressUp( SteamVR_Controller.ButtonMask.Trigger ) )
@@ -156,6 +158,21 @@ public class ControllerSlingshot : MonoBehaviour {
             projectile.AddForce( currentProjectileVelocity, ForceMode.VelocityChange );
             // TODO: no longer a trigger: collide away!?
             // currentProjectile.GetComponent<Collider>().isTrigger = false;
+
+            // play a sound
+            if( launchSound != "" )
+            {
+                float vel = currentProjectileVelocity.magnitude;
+                float bufRate = 1.0f + vel / throwStrength;
+                TheChuck.Instance.RunCode( string.Format( @"
+                    SndBuf buf => dac;
+                    me.dir() + ""{1}"" => buf.read;
+                    {0} => buf.rate;
+                
+                    buf.length() / buf.rate() => now;
+
+                ", bufRate, launchSound ) );
+            }
 
             pullingBack = false;
             pullbackOtherController = null;
