@@ -19,7 +19,7 @@ public class FollowPlayerGaze : MonoBehaviour {
 
     void StartWhoosh()
     {
-        TheChuck.Instance.RunCode( @"
+        TheChuck.instance.RunCode( @"
             Noise n => LPF f => HPF hf => dac;
             0.05 => hf.gain;
             SinOsc lfo => blackhole;
@@ -41,16 +41,16 @@ public class FollowPlayerGaze : MonoBehaviour {
     {
         float speedAmount = currentSpeed / maxSpeed;
         // 320 - 1000
-        TheChuck.Instance.SetFloat( "baseWhooshLPFFreq", 320 + speedAmount * (1000 - 320) );
+        TheChuck.instance.SetFloat( "baseWhooshLPFFreq", 320 + speedAmount * (1000 - 320) );
         // 0.3 - 8
         // or: 0.3-1
-        TheChuck.Instance.SetFloat( "lfoWhooshRate", 0.3 + speedAmount * 0.7 );
+        TheChuck.instance.SetFloat( "lfoWhooshRate", 0.3 + speedAmount * 0.7 );
     }
 
     void StartNeow()
     {
         // play neowwww
-        TheChuck.Instance.RunCode(@"
+        TheChuck.instance.RunCode(@"
             SndBuf neowBuf => dac;
             me.dir() + ""neow.wav"" => neowBuf.read;
             1 => external float neowRate;
@@ -80,7 +80,7 @@ public class FollowPlayerGaze : MonoBehaviour {
     {
         // lowest speed: 0.5x
         // highest speed: 1.5x
-        TheChuck.Instance.SetFloat( "neowRate", 0.5 + currentSpeed / maxSpeed );
+        TheChuck.instance.SetFloat( "neowRate", 0.5 + currentSpeed / maxSpeed );
     }
 
     // Update is called once per frame

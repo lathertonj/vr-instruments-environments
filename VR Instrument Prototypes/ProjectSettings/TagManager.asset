@@ -18,8 +18,8 @@ TagManager:
   - 
   - 
   - Terrain
-  - 
-  - 
+  - InvisibleWalls
+  - VisibleWalls
   - 
   - 
   - 

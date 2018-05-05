@@ -52,7 +52,7 @@ public class ControllerSlingshot : MonoBehaviour {
         // when using this interaction method, make it much easier for controllers
         // to collide with each other
         BoxCollider myCollider = GetComponent<BoxCollider>();
-        myCollider.size *= 2f;
+        myCollider.size *= 3f;
 
         // create anchors for bands
 		myLeftBandAnchor = AddControllerBandLocation( slingshotBandOffset, left: true );
@@ -124,8 +124,7 @@ public class ControllerSlingshot : MonoBehaviour {
             if( newClickAmount != currentClickAmount && pullbackSound != "" )
             {
                 float bufRate = 1.0f + ( newClickAmount * 1.0f / 30 );
-                Debug.Log( bufRate );
-                TheChuck.Instance.RunCode( string.Format( @"
+                TheChuck.instance.RunCode( string.Format( @"
                     SndBuf buf => dac;
                     me.dir() + ""{1}"" => buf.read;
                     {0} => buf.rate;
@@ -164,7 +163,7 @@ public class ControllerSlingshot : MonoBehaviour {
             {
                 float vel = currentProjectileVelocity.magnitude;
                 float bufRate = 1.0f + vel / throwStrength;
-                TheChuck.Instance.RunCode( string.Format( @"
+                TheChuck.instance.RunCode( string.Format( @"
                     SndBuf buf => dac;
                     me.dir() + ""{1}"" => buf.read;
                     {0} => buf.rate;
