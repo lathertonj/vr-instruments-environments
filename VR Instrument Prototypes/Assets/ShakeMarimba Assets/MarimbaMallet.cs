@@ -8,7 +8,7 @@ public class MarimbaMallet : MonoBehaviour
     private SteamVR_TrackedObject trackedObj;
     private SteamVR_Controller.Device Controller
     {
-        get { return SteamVR_Controller.Input((int)trackedObj.index); }
+        get { return SteamVR_Controller.Input( (int) trackedObj.index ); }
     }
 
     private void Awake()
@@ -69,8 +69,8 @@ public class MarimbaMallet : MonoBehaviour
             // PARAMS
 
             // spawn rate: how often a new grain is spawned (ms)
-            10 => global float grainSpawnRateMS{0};
-            5 => global float grainSpawnRateVariationMS{0};
+            100 => global float grainSpawnRateMS{0};
+            20 => global float grainSpawnRateVariationMS{0};
             0.1 => global float grainSpawnRateVariationRateHZ{0};
 
             // position: where in the file is a grain (0 to 1)
@@ -90,7 +90,7 @@ public class MarimbaMallet : MonoBehaviour
             10 => global float rampDownMS{0};
 
             // gain: how loud is everything overall
-            1 => global float gainMultiplier{0};
+            0 => global float gainMultiplier{0};
 
             global Event longFadeOut{0};
 
@@ -205,8 +205,27 @@ public class MarimbaMallet : MonoBehaviour
     {
         if( hitNote > 0 )
         {
-            // TODO: map movement-at-all to gain
+            float controllerVelocity = Controller.velocity.magnitude; // 2 is a lot, 0.25 is a little
+            float movementAtAll = Mathf.Clamp01( controllerVelocity / 0.25f );
+            float movementALot = Mathf.Clamp01( controllerVelocity / 1.3f ); // actually do 1.3
+            // map movement-at-all to gain
+            myChuck.SetFloat( lisaLoudness, movementAtAll );
+
             // TODO: map HARD movement to varying the grain position more and maaaybe playing more grains
+            // from 0.15 +- 0.05 to 0.4 +- 0.35? that didn't sound too different.
+            // try from 0.15 +-0.05 to 0.01 +- 0.008
+            float minPos = 0.15f;
+            float minRandPos = 0.05f;
+            float maxPos = 0.000f; // 0.01f
+            float maxRandPos = 0.001f; // 0.008f
+            myChuck.SetFloat( grainPosition, minPos + ( maxPos - minPos ) * movementALot );
+            myChuck.SetFloat( grainPositionRandomness, minRandPos + ( maxRandPos - minRandPos ) * movementALot );
+
+            // grain rate randomness: 0.02 to 0.07?
+            myChuck.SetFloat( grainRateRandomness, 0.02 + movementALot * 0.05 );
+
+            // grain spawn rate: 50 ms to 100 ms?
+            myChuck.SetFloat( spawnRate, 50 + 50 * movementALot );
         }
     }
 
