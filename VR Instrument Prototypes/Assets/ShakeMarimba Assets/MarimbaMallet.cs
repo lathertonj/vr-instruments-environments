@@ -69,21 +69,21 @@ public class MarimbaMallet : MonoBehaviour
             // PARAMS
 
             // spawn rate: how often a new grain is spawned (ms)
-            25 => global float grainSpawnRateMS{0};
-            0.0 => global float grainSpawnRateVariationMS{0};
+            10 => global float grainSpawnRateMS{0};
+            5 => global float grainSpawnRateVariationMS{0};
             0.1 => global float grainSpawnRateVariationRateHZ{0};
 
             // position: where in the file is a grain (0 to 1)
-            0.66 => global float grainPosition{0};
-            0.1 => global float grainPositionRandomness{0};
+            0.15 => global float grainPosition{0};
+            0.05 => global float grainPositionRandomness{0};
 
             // grain length: how long is a grain (ms)
             300 => global float grainLengthMS{0};
             100 => global float grainLengthRandomnessMS{0};
 
             // grain rate: how quickly is the grain scanning through the file
-            1.7 => global float grainRate{0};
-            0.6 => global float grainRateRandomness{0};
+            1 => global float grainRate{0};
+            0.05 => global float grainRateRandomness{0};
 
             // ramp up/down: how quickly we ramp up / down
             2 => global float rampUpMS{0};
@@ -96,7 +96,16 @@ public class MarimbaMallet : MonoBehaviour
 
 
 
-            LiSa {1} => Gain fadeoutGain => dac;
+            global LiSa {1} => Gain fadeoutGain => dac;
+
+            SndBuf buf; 
+            me.dir() + ""impact.wav"" => buf.read;
+            buf.length() => {1}.duration;
+            // copy samples in
+            for( int i; i < buf.samples(); i++ )
+            {{
+                {1}.valueAt( buf.valueAt( i ), i::samp );
+            }}
 
             // LiSa params
             100 => {1}.maxVoices;
@@ -196,7 +205,8 @@ public class MarimbaMallet : MonoBehaviour
     {
         if( hitNote > 0 )
         {
-
+            // TODO: map movement-at-all to gain
+            // TODO: map HARD movement to varying the grain position more and maaaybe playing more grains
         }
     }
 
@@ -207,13 +217,18 @@ public class MarimbaMallet : MonoBehaviour
         {
             hitNote = maybeN.myNote;
             myChuck.RunCode( string.Format( @"
-                global LiSa {1};
+//                global LiSa {1};
                 SndBuf buf => dac;
                 me.dir() + ""impact.wav"" => buf.read;
                 Math.pow( 2, 1.0 / 12 ) => float twelfthRootOfTwo;
                 Math.pow( twelfthRootOfTwo, {0} - 60 ) => buf.rate;
+// NEW WAY
+                global float grainRate{2};
+                buf.rate() => grainRate{2};
+                buf.length() / buf.rate() => now;
 
-                now + buf.length() / buf.rate() => time endTime;
+// OLD WAY
+                /*now + buf.length() / buf.rate() => time endTime;
                 0 => int i;
                 
                 // turn lisa off
@@ -231,8 +246,8 @@ public class MarimbaMallet : MonoBehaviour
                 }}
 
                 // turn lisa back on
-                1 => {1}.gain;
-            ", hitNote, myLisa ) );
+                1 => {1}.gain;*/
+            ", hitNote, myLisa, myDifferentiationNum ) );
 
             GetComponent<HapticFeedback>().TriggerHapticFeedback( intensity: 1, timeDelay: 0.05f );
         }
