@@ -8,6 +8,7 @@ TagManager:
   - Hammer
   - Controller
   - Throwable
+  - Ground
   layers:
   - Default
   - TransparentFX
