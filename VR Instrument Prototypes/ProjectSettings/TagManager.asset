@@ -22,7 +22,7 @@ TagManager:
   - Terrain
   - InvisibleWalls
   - VisibleWalls
-  - 
+  - IgnoreInvisibleWalls
   - 
   - 
   - 
