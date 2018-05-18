@@ -12,30 +12,30 @@
 // PARAMS
 
 // spawn rate: how often a new grain is spawned (ms)
-25 => external float grainSpawnRateMS;
-0.0 => external float grainSpawnRateVariationMS;
-0.1 => external float grainSpawnRateVariationRateMS;
+25 => global float grainSpawnRateMS;
+0.0 => global float grainSpawnRateVariationMS;
+0.1 => global float grainSpawnRateVariationRateMS;
 
 // position: where in the file is a grain (0 to 1)
-0.66 => external float grainPosition;
-0.1 => external float grainPositionRandomness;
+0.66 => global float grainPosition;
+0.1 => global float grainPositionRandomness;
 
 // grain length: how long is a grain (ms)
-300 => external float grainLengthMS;
-100 => external float grainLengthRandomnessMS;
+300 => global float grainLengthMS;
+100 => global float grainLengthRandomnessMS;
 
 // grain rate: how quickly is the grain scanning through the file
-1.7 => external float grainRate;
-0.6 => external float grainRateRandomness;
+1.7 => global float grainRate;
+0.6 => global float grainRateRandomness;
 
 // ramp up/down: how quickly we ramp up / down
-2 => external float rampUpMS;
-10 => external float rampDownMS;
+2 => global float rampUpMS;
+10 => global float rampDownMS;
 
 // gain: how loud is everything overall
-0 => external float gainMultiplier;
+0 => global float gainMultiplier;
 
-external Event longFadeOut;
+global Event longFadeOut;
 
 
 
