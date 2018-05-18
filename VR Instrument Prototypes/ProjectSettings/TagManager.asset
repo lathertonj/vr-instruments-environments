@@ -9,6 +9,7 @@ TagManager:
   - Controller
   - Throwable
   - Ground
+  - Bot
   layers:
   - Default
   - TransparentFX
