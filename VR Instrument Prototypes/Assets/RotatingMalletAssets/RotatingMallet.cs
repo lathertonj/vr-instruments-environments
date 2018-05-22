@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RotatingMallet : MonoBehaviour
+public class RotatingMallet : MonoBehaviour , IOneHandedSlingshotable
 {
+    public Transform thingToRotate;
 
     private ChuckSubInstance myChuck;
     private ChuckFloatSyncer myRotationAmountSyncer;
@@ -87,17 +88,17 @@ public class RotatingMallet : MonoBehaviour
     {
         if( Input.GetKeyDown( "space" ) )
         {
-            StartRotating( 28 );
+            BeLetGoOf( 28 );
         }
 
         if( amRotating )
         {
-            transform.rotation = Quaternion.AngleAxis( 360 * myRotationAmountSyncer.GetCurrentValue(), Vector3.left );
+            thingToRotate.rotation = Quaternion.AngleAxis( 360 * myRotationAmountSyncer.GetCurrentValue(), Vector3.left );
         }
 
     }
 
-    public void StartRotating( int numClicks )
+    public void BeLetGoOf( int numClicks )
     {
         // map num clicks to a rotation speed
         // 0 click = slowest.  24bpm. 
@@ -112,9 +113,14 @@ public class RotatingMallet : MonoBehaviour
         amRotating = true;
     }
 
-    public void StopRotating()
+    public void BeGrabbed()
     {
         myChuck.BroadcastEvent( stopRotating );
         amRotating = false;
+    }
+
+    public void BeMovedToward( Vector3 position )
+    {
+        // TODO: calculate the correct angle for me to be pointing at the position
     }
 }
