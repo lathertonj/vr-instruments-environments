@@ -93,7 +93,7 @@ public class RotatingMallet : MonoBehaviour , IOneHandedSlingshotable
 
         if( amRotating )
         {
-            thingToRotate.rotation = Quaternion.AngleAxis( 360 * myRotationAmountSyncer.GetCurrentValue(), Vector3.left );
+            thingToRotate.rotation = Quaternion.AngleAxis( -90 + 360 * myRotationAmountSyncer.GetCurrentValue(), Vector3.left );
         }
 
     }
@@ -122,5 +122,6 @@ public class RotatingMallet : MonoBehaviour , IOneHandedSlingshotable
     public void BeMovedToward( Vector3 position )
     {
         // TODO: calculate the correct angle for me to be pointing at the position
+        thingToRotate.LookAt( position );
     }
 }
