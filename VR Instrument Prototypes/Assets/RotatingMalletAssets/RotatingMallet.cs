@@ -122,6 +122,10 @@ public class RotatingMallet : MonoBehaviour , IOneHandedSlingshotable
     public void BeMovedToward( Vector3 position )
     {
         // TODO: calculate the correct angle for me to be pointing at the position
-        thingToRotate.LookAt( position );
+        Vector3 localLookDirection = transform.InverseTransformPoint( position );
+        // don't rotate in x
+        localLookDirection.x = 0;
+
+        thingToRotate.rotation = Quaternion.LookRotation( localLookDirection );
     }
 }

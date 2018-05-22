@@ -27,6 +27,8 @@ public class ControllerOneHandedSlingshot : MonoBehaviour
     private bool pullingBack = false;
     private IOneHandedSlingshotable slingshotable = null;
     private IOneHandedSlingshotable pullbackSlingshotable = null;
+    private Transform slingshotableTransform = null; 
+    private Transform pullbackSlingshotableTransform = null;
     private Vector3 pointPullbackStartedFrom;
 
     private Transform myLeftBandAnchor;
@@ -60,12 +62,13 @@ public class ControllerOneHandedSlingshot : MonoBehaviour
             // initiate draw-back!
             pullingBack = true;
             pullbackSlingshotable = slingshotable;
+            pullbackSlingshotableTransform = slingshotableTransform;
 
             // tell it to be grabbed!
             pullbackSlingshotable.BeGrabbed();
 
             // remember where the grab started
-            pointPullbackStartedFrom = GetControllerTipLocation();
+            pointPullbackStartedFrom = pullbackSlingshotableTransform.position;
             myLeftBandStationaryAnchor = AddWorldBandLocation( pointPullbackStartedFrom, slingshotBandOffset, left: true );
             myRightBandStationaryAnchor = AddWorldBandLocation( pointPullbackStartedFrom, slingshotBandOffset, left: false );
 
@@ -110,6 +113,7 @@ public class ControllerOneHandedSlingshot : MonoBehaviour
             // reset
             pullingBack = false;
             pullbackSlingshotable = null;
+            pullbackSlingshotableTransform = null;
 
             // remove the slingshot model
             Destroy( myLeftBand.gameObject );
@@ -131,6 +135,7 @@ public class ControllerOneHandedSlingshot : MonoBehaviour
         if( maybeSlingshotable != null )
         {
             slingshotable = maybeSlingshotable;
+            slingshotableTransform = other.transform;
             collidingWithSlingshotable = true;
         }
     }
@@ -149,6 +154,7 @@ public class ControllerOneHandedSlingshot : MonoBehaviour
         {
             collidingWithSlingshotable = false;
             slingshotable = null;
+            slingshotableTransform = null;
         }
     }
 
