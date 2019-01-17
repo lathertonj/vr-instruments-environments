@@ -83,6 +83,8 @@ public class RotatingMallet : MonoBehaviour , IOneHandedSlingshotable
         myRotationAmountSyncer.SyncFloat( myChuck, currentRotation );
     }
 
+    // TODO: BE ABLE TO RESET PHASE
+
     // Update is called once per frame
     void Update()
     {

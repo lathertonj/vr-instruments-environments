@@ -4,4 +4,8 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/_Scenes/WheeBox.unity
+    guid: a297ac2bd5f3c5a409b010c1a182d2d8
+  m_configObjects: {}
